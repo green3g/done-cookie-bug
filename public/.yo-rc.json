@@ -1,0 +1,9 @@
+{
+  "generator-donejs": {
+    "promptValues": {
+      "authorName": "Gregg Roemhildt",
+      "authorEmail": "roemhildtg@gmail.com",
+      "authorUrl": "https://donejs.com"
+    }
+  }
+}

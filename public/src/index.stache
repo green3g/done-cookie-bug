@@ -1,0 +1,28 @@
+<html>
+  <head>
+    <title>{{title}}</title>
+  </head>
+  <body>
+    <can-import from="~/styles.less" />
+    <can-import from="~/app" export-as="viewModel" />
+    <h1>Welcome!</h1>
+    {{#if(session.user)}}
+      User is authenticated! {{session.user.email}}
+      <button type="button" on:click="logout()">Logout</button>
+    {{else}}
+    <input type="text" placeholder="name" value:bind="username" />
+    <input type="text" placeholder="password" value:bind="password" />
+    <button type="button" on:click="login()">Submit</button>
+    {{/if}}
+
+
+    {{#switch env.NODE_ENV}}
+      {{#case "production"}}
+        <script src="{{joinBase('steal.production.js')}}"></script>
+      {{/case}}
+      {{#default}}
+        <script src="/node_modules/steal/steal.js"></script>
+      {{/default}}
+    {{/switch}}
+  </body>
+</html>
