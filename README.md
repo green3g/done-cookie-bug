@@ -1,57 +1,26 @@
-# feathers-basics
+# donejs cookie bug
 
-> a chat app
+Steps to reproduce:
 
-## About
+1. npm install in both root and `public` folders
+2. Patch the following issues in manually:
 
-This project uses [Feathers](http://feathersjs.com). An open source web framework for building modern real-time applications.
+This issue prevents donessr from **ever** sending an authentication request: 
+can-connect-feathers won't authenticate in donejs - https://github.com/canjs/can-connect-feathers/issues/111
+    remove the check for !doneSSR
 
-## Getting Started
+This issue prevents done-ssr from ever providing a valid response object for feathers, so the response "errors" out:
+response.ok should be set - https://github.com/donejs/done-ssr/issues/509
+    make sure response.ok = resp.ok
 
-Getting up and running is as easy as 1, 2, 3.
-
-1. Make sure you have [NodeJS](https://nodejs.org/) and [npm](https://www.npmjs.com/) installed.
-2. Install your dependencies
-
-    ```
-    cd path/to/feathers-basics; npm install
-    ```
-
-3. Start your app
-
-    ```
-    npm start
-    ```
-
-## Testing
-
-Simply run `npm test` and all your tests in the `test/` directory will be run.
-
-## Scaffolding
-
-Feathers has a powerful command line interface. Here are a few things it can do:
-
+3. Start the server: 
 ```
-$ npm install -g @feathersjs/cli          # Install Feathers CLI
-
-$ feathers generate service               # Generate a new Service
-$ feathers generate hook                  # Generate a new Hook
-$ feathers generate model                 # Generate a new Model
-$ feathers help                           # Show all commands
+node src/index
 ```
 
-## Help
+4. Open two windows, one in incognito at localhost:3030
+5. Login with one using the default
+6. Login with the other one using `other@example.com` (same password)
+7. Refresh the "other" user's page
 
-For more information on all the things you can do with Feathers visit [docs.feathersjs.com](http://docs.feathersjs.com).
-
-## Changelog
-
-__0.1.0__
-
-- Initial release
-
-## License
-
-Copyright (c) 2016
-
-Licensed under the [MIT license](LICENSE).
+![image](./donejs-cookie-bug.gif)
